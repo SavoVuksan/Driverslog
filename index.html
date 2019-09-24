@@ -12,7 +12,7 @@
 
 <body>
     <!-- Login -->
-    <div class="container text-center bg-white rounded-lg my-5 mx-auto d-none" style="max-width: 500px">
+    <div class="container text-center bg-white rounded-lg my-5 mx-auto login-container d-none" style="max-width: 500px">
         <div class="row my-2">
             <div class="col">
                 <h1 class="display-3">
@@ -23,10 +23,10 @@
         </div>
         <div class="row">
             <div class="col">
-                <form>
+                <form class="loginForm">
                     <div class="form-group">
                         <input type="email" class="form-control form-control-lg my-4 " name="login-email"
-                            placeholder="E-Mail">
+                            placeholder="E-Mail" autofocus>
                         <input type="password" class="form-control form-control-lg my-4" name="login-password"
                             placeholder="Password">
                         <input type="submit" class="btn btn-lg btn-primary" id="submit-login" value="Login">
@@ -37,67 +37,93 @@
 
     </div>
 
-    <!-- Header-->
-    <div class="container bg-white shadow p-3 mb-5 fixed-top ">
-        <div class="row">
-            <div class="col pt-1 pb-1">
-                <button class="btn" style=" font-size: 45px">
-                    <i class="fas fa-bars"></i>
-                </button>
+    <div class="app-container d-none">
+        <!-- Header-->
+        <div class="container bg-white shadow p-3 mb-5 fixed-top ">
+            <div class="row">
+                <div class="col pt-1 pb-1">
+                    <button class="btn" style=" font-size: 45px">
+                        <i class="fas fa-bars"></i>
+                    </button>
 
-            </div>
-            <div class="col">
-                <h3 class="lead big-text pt-3 text-uppercase">Savo</h3>
-            </div>
-            <div class="col text-right">
-                <button class="btn " style=" font-size: 45px">
-                    <i class="fas fa-caret-right"></i>
-                </button>
+                </div>
+                <div class="col">
+                    <h3 class="lead big-text pt-3 text-uppercase">Savo</h3>
+                </div>
+                <div class="col text-right">
+                    <button class="btn signOut-btn" style=" font-size: 45px">
+                        <i class="fas fa-caret-right"></i>
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Add Ride-->
-    <div class="container bg-white pt-5 mt-5" style="">
+        <!-- Add Ride-->
+        <div class="container bg-white pt-5 mt-5 ">
 
-        <div class="row pt-5">
-            <div class="col">
-                <form>
-                    <div class="row mb-5">
-                        <div class="col">
-                            <div class="input-group">
-                                <input type="number" class="form-control form-control-lg" name="addR-startKM"
-                                    placeholder="KM Before">
-                                <input type="text" class="form-control form-control-lg" name="addR-start"
-                                    placeholder="Trip Start Location">
+            <div class="row pt-5">
+                <div class="col">
+                    <form>
+                        <div class="row mb-5">
+                            <div class="col">
+                                <div class="input-group">
+                                    <input type="number" class="form-control form-control-lg" name="addR-startKM"
+                                        placeholder="KM Before">
+                                    <input type="text" class="form-control form-control-lg" name="addR-start"
+                                        placeholder="Trip Start Location">
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" name="addR-endKM"
+                                    class="form-control form-control-lg my-3 input-lg" placeholder="KM After" autofocus>
+                                <input type="text" name="addR-end" class="form-control form-control-lg  input-md"
+                                    placeholder="Trip End Location">
                             </div>
 
                         </div>
 
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <input type="number" name="addR-endKM" class="form-control form-control-lg my-3 input-lg"
-                                placeholder="KM After" autofocus>
-                            <input type="text" name="addR-end" class="form-control form-control-lg  input-md"
-                                placeholder="Trip End Location">
-                        </div>
-
-                    </div>
-
-                    <div class="row text-center fixed-bottom ">
-                        <div class="col">
-                            <button type="submit" class="btn btn-primary btn-lg py-4 big-text px-4" style="display: block; width: 100%; border-radius: 0px">
+                        <div class="row text-center fixed-bottom ">
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary btn-lg py-4 big-text px-4"
+                                    style="display: block; width: 100%; border-radius: 0px">
                                     <i class="fas fa-plus"></i>
-                            </button>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-firestore.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBg5dOs6w65Xawi9vAPbYhgKGpFUhCBTic",
+            authDomain: "driverslog-mobile.firebaseapp.com",
+            databaseURL: "https://driverslog-mobile.firebaseio.com",
+            projectId: "driverslog-mobile",
+            storageBucket: "driverslog-mobile.appspot.com",
+            messagingSenderId: "654681045457",
+            appId: "1:654681045457:web:cadabf4e7ce8da0d8e08f0"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
 
     <script src="https://kit.fontawesome.com/977c496949.js" crossorigin="anonymous"></script>
     <script type="module" src="src/User.js"></script>
