@@ -6,5 +6,6 @@ export class Ride {
         this.startKM = startKM;
         this.endKM = endKM;
         this.passengers = passengers;
+        this.timestamp = new Date();
     }
 }

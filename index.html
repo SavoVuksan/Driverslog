@@ -29,7 +29,10 @@
                             placeholder="E-Mail" autofocus>
                         <input type="password" class="form-control form-control-lg my-4" name="login-password"
                             placeholder="Password">
+                        <p class="login-errors outline-danger text-danger d-none"></p>
                         <input type="submit" class="btn btn-lg btn-primary" id="submit-login" value="Login">
+                        <br>
+                        <button class="btn btn-sm btn-outline-primary my-4 goToRegister-btn">Go To Register</button>
                     </div>
                 </form>
             </div>
@@ -37,9 +40,41 @@
 
     </div>
 
-    <div class="app-container d-none">
+    <!-- Register -->
+    <div class="container text-center bg-white rounded-lg my-5 mx-auto register-container d-none"
+        style="max-width: 500px">
+        <div class="row my-2">
+            <div class="col">
+                <h1 class="display-3">
+                    Register
+                </h1>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col">
+                <form class="registerForm">
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-lg my-4 " name="register-name"
+                            placeholder="Name" autofocus>
+                        <input type="email" class="form-control form-control-lg my-4 " name="register-email"
+                            placeholder="E-Mail">
+                        <input type="password" class="form-control form-control-lg my-4" name="register-password"
+                            placeholder="Password">
+                        <p class="register-errors outline-danger text-danger d-none"></p>
+                        <input type="submit" class="btn btn-lg btn-primary" id="submit-register" value="Register">
+                        <br>
+                        <button class="btn btn-sm btn-outline-primary my-4 backToLogin-btn">Back To Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="app-container d-none" style="overflow-y: hidden">
         <!-- Header-->
-        <div class="container bg-white shadow p-3 mb-5 fixed-top ">
+        <div class="container bg-white shadow p-3 mb-5 fixed-top  " style="height: 120px;">
             <div class="row">
                 <div class="col pt-1 pb-1">
                     <button class="btn" style=" font-size: 45px">
@@ -47,8 +82,8 @@
                     </button>
 
                 </div>
-                <div class="col">
-                    <h3 class="lead big-text pt-3 text-uppercase">Savo</h3>
+                <div class="col text-center">
+                    <h3 class="lead big-text pt-3 header-username text-uppercase"></h3>
                 </div>
                 <div class="col text-right">
                     <button class="btn signOut-btn" style=" font-size: 45px">
@@ -59,11 +94,11 @@
         </div>
 
         <!-- Add Ride-->
-        <div class="container bg-white pt-5 mt-5 ">
+        <div class="container bg-white pt-5 mt-5 full-height" >
 
-            <div class="row pt-5">
-                <div class="col">
-                    <form>
+            <div class="row pt-5" style="padding-top: 150px!important" >
+                <div class="col" >
+                    <form class="addRide-form" >
                         <div class="row mb-5">
                             <div class="col">
                                 <div class="input-group">
@@ -88,15 +123,18 @@
 
                         </div>
 
-                        <div class="row text-center fixed-bottom ">
+                        <div class="row text-center ">
                             <div class="col">
-                                <button type="submit" class="btn btn-primary btn-lg py-4 big-text px-4"
-                                    style="display: block; width: 100%; border-radius: 0px">
-                                    <i class="fas fa-plus"></i>
+                                <button type="submit" class="btn btn-primary btn-lg  my-5 big-text px-4 " 
+                                    style="display: block; width: 100%;  ">
+                                    Save Ride
                                 </button>
                             </div>
                         </div>
                     </form>
+                    <div class="alert alert-primary addRide-alert fixed-bottom d-none pm-0">
+                       
+                    </div>
                 </div>
             </div>
         </div>

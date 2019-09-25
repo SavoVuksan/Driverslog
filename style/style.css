@@ -13,3 +13,22 @@ body{
     padding-top: 28px;
     padding-bottom: 28px;
 }
+
+.outline-danger{
+    padding: 10px;
+    border-radius: 5px;
+    border-color: #d9534f;
+    border-width: 0.8px;
+    border-style: solid;
+}
+
+.full-height{
+    height: 92vh;
+    padding-top: 0px !important;
+    margin-top: 0px !important;
+}
+
+.pm-0{
+    padding: 5px;
+    margin: 5px;
+}
