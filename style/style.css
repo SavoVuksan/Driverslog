@@ -35,7 +35,7 @@ body{
 
 .z-top{
     z-index: 1040;
-    position: absolute;
+    position: fixed;
 }
 
 .nav-con{
@@ -76,4 +76,15 @@ body{
 
 .nav-item-active{
     background-color: #ddd;
+}
+
+.all-rides-list{
+    list-style: none;
+    padding: 0px;
+}
+
+.all-rides-list > li{
+    font-size: 1.0em;
+    padding: 20px 0px 20px 0px;
+    border-bottom: solid 0.8px;
 }

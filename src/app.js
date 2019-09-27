@@ -33,16 +33,16 @@ const navAddRide = document.querySelector('.nav-add-ride');
 const navAllRides = document.querySelector('.nav-all-rides');
 const allRidesCon = document.querySelector('.all-rides-con');
 const addRideCon = document.querySelector('.add-ride-con');
+const allRidesList = document.querySelector('.all-rides-list');
+
 // Vars
 let isLoggedIn = false;
 let appUser = null;
 let alertTimer = null;
 const appState = new AppState();
+const allRides = [];
+
 appState.appState = 'login';
-
-
-
-
 
 // Functions
 const login = (email, password) => {
@@ -137,6 +137,29 @@ const loadLastRide = () => {
     });
 };
 
+const loadAllRides = () => {
+    firestore.collection('rides').orderBy('timestamp').get()
+    .then(snap => {
+        let html = '';
+        snap.docs.forEach(doc => {
+            const {startKM, endKM, timestamp, startLoc, endLoc} = doc.data();
+            const date = new Date();
+            date.setTime(timestamp.seconds*1000);
+             html += `
+            <li>
+            <span class="float-left ml-3"> ${date.toLocaleDateString('de')}</span> Driver <span class="float-right mr-3"> ${startLoc} -
+                ${endLoc}</span>
+                <br>
+                ${startKM}KM - ${endKM}KM
+        </li>
+            `;
+
+        });
+        allRidesList.innerHTML = html;
+    });
+}
+
+
 //  Event Listeners
 loginForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -217,6 +240,7 @@ appState.registerListener((val) => {
     }else if( val === 'allRides'){
         addRideCon.classList.add('d-none');
         allRidesCon.classList.remove('d-none');
+        loadAllRides();
     }
 });
 
@@ -237,6 +261,7 @@ auth.onAuthStateChanged(user => {
 firestore.collection('rides').onSnapshot({
     next(snapshot){
         loadLastRide();
+        loadAllRides();
     },
     error(err){
         console.log(err);
