@@ -4,6 +4,9 @@ import {
 import {
     Ride
 } from './Ride.js';
+import {
+    AppState
+} from './AppState.js';
 
 // Firebase objects
 const auth = firebase.auth();
@@ -23,10 +26,23 @@ const loginErrors = document.querySelector('.login-errors');
 const headerUsername = document.querySelector('.header-username');
 const addRideForm = document.querySelector('.addRide-form');
 const addRideAlert = document.querySelector('.addRide-alert');
+const navBtn = document.querySelector('.open-nav-btn');
+const nav = document.querySelector('.nav-con');
+const closeNav = document.querySelector('.close-nav');
+const navAddRide = document.querySelector('.nav-add-ride');
+const navAllRides = document.querySelector('.nav-all-rides');
+const allRidesCon = document.querySelector('.all-rides-con');
+const addRideCon = document.querySelector('.add-ride-con');
 // Vars
 let isLoggedIn = false;
 let appUser = null;
 let alertTimer = null;
+const appState = new AppState();
+appState.appState = 'login';
+
+
+
+
 
 // Functions
 const login = (email, password) => {
@@ -164,6 +180,46 @@ addRideForm.addEventListener('submit', e => {
     addRide(kmBefore, startLoc, kmAfter, endLoc);
 });
 
+navBtn.addEventListener('click', e => {
+    nav.classList.remove('nav-hidden');
+    nav.classList.add('nav-active');
+});
+
+closeNav.addEventListener('click', e => {
+    nav.classList.remove('nav-active');
+    nav.classList.add('nav-hidden');
+});
+
+navAddRide.addEventListener('click', e => {
+    nav.classList.remove('nav-active');
+    nav.classList.add('nav-hidden');
+    appState.appState = 'addRide';
+
+    navAddRide.classList.add('nav-item-active');
+    navAllRides.classList.remove('nav-item-active');
+});
+
+navAllRides.addEventListener('click', e => {
+    nav.classList.remove('nav-active');
+    nav.classList.add('nav-hidden');
+    appState.appState = 'allRides';
+    
+    navAddRide.classList.remove('nav-item-active');
+    navAllRides.classList.add('nav-item-active');
+});
+
+
+// App state listener
+appState.registerListener((val) => {
+    if(val === 'addRide'){
+        addRideCon.classList.remove('d-none');
+        allRidesCon.classList.add('d-none');
+    }else if( val === 'allRides'){
+        addRideCon.classList.add('d-none');
+        allRidesCon.classList.remove('d-none');
+    }
+});
+
 // Auth state listener
 auth.onAuthStateChanged(user => {
     isLoggedIn = (user !== null ? true : false);
@@ -172,6 +228,7 @@ auth.onAuthStateChanged(user => {
     toggleLoginForm(isLoggedIn);
 
     if (isLoggedIn) {
+        appState.appState = 'addRide';
         loadLastRide();
         updateNameUI(user);
     }
