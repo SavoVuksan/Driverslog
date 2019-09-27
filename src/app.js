@@ -130,33 +130,49 @@ const addRide = (kmBefore, startLoc, kmAfter, endLoc) => {
 
 const loadLastRide = () => {
     firestore.collection('rides').orderBy('timestamp', 'desc').get()
-    .then(snap => {
-        const {endKM, endLoc} = snap.docs[0].data();
-        addRideForm['addR-startKM'].value = endKM;
-        addRideForm['addR-start'].value = endLoc;
-    });
+        .then(snap => {
+            const {
+                endKM,
+                endLoc
+            } = snap.docs[0].data();
+            addRideForm['addR-startKM'].value = endKM;
+            addRideForm['addR-start'].value = endLoc;
+        });
 };
 
 const loadAllRides = () => {
     firestore.collection('rides').orderBy('timestamp').get()
-    .then(snap => {
-        let html = '';
-        snap.docs.forEach(doc => {
-            const {startKM, endKM, timestamp, startLoc, endLoc} = doc.data();
-            const date = new Date();
-            date.setTime(timestamp.seconds*1000);
-             html += `
-            <li>
-            <span class="float-left ml-3"> ${date.toLocaleDateString('de')}</span> Driver <span class="float-right mr-3"> ${startLoc} -
-                ${endLoc}</span>
-                <br>
-                ${startKM}KM - ${endKM}KM
-        </li>
-            `;
+        .then(snap => {
+            let html = '';
+            snap.docs.forEach(doc => {
+                const {
+                    startKM,
+                    endKM,
+                    timestamp,
+                    driver,
+                    startLoc,
+                    endLoc
+                } = doc.data();
+                const date = new Date();
+                date.setTime(timestamp.seconds * 1000);
+                firestore.doc(driver).get().then(snap => {
+                    const username = snap.data().username;
+                    console.log(username);
+                    html += `
+                <li>
+                <span class="float-left ml-3"> ${date.toLocaleDateString('de')}</span> ${username} <span class="float-right mr-3"> ${startLoc} -
+                    ${endLoc}</span>
+                    <br>
+                    ${startKM}KM - ${endKM}KM
+            </li>
+                `;
+                allRidesList.innerHTML = html;
+                });
 
+
+            });
+            
         });
-        allRidesList.innerHTML = html;
-    });
 }
 
 
@@ -226,7 +242,7 @@ navAllRides.addEventListener('click', e => {
     nav.classList.remove('nav-active');
     nav.classList.add('nav-hidden');
     appState.appState = 'allRides';
-    
+
     navAddRide.classList.remove('nav-item-active');
     navAllRides.classList.add('nav-item-active');
 });
@@ -234,10 +250,10 @@ navAllRides.addEventListener('click', e => {
 
 // App state listener
 appState.registerListener((val) => {
-    if(val === 'addRide'){
+    if (val === 'addRide') {
         addRideCon.classList.remove('d-none');
         allRidesCon.classList.add('d-none');
-    }else if( val === 'allRides'){
+    } else if (val === 'allRides') {
         addRideCon.classList.add('d-none');
         allRidesCon.classList.remove('d-none');
         loadAllRides();
@@ -259,11 +275,11 @@ auth.onAuthStateChanged(user => {
 });
 
 firestore.collection('rides').onSnapshot({
-    next(snapshot){
+    next(snapshot) {
         loadLastRide();
         loadAllRides();
     },
-    error(err){
+    error(err) {
         console.log(err);
     }
 });
