@@ -5,8 +5,8 @@ I developed the app because my family is sharing a car and till now we had to en
 With this webapp you save the tedious step to bring over the analog data to Excel.
 The app shows you who rode on which date and how far.
 
-![Driverslog Entry](/images/driverslog1.png)
+![Driverslog Entry](https://github.com/SavoVuksan/Driverslog/blob/master/images/driverslog01.PNG)
 
-![Driverslog List](/images/driverslog2.png)
+![Driverslog List](https://github.com/SavoVuksan/Driverslog/blob/master/images/driverslog02.PNG)
 
 The Webapp is made with plain JS ES2016 and uses Firebase as a host and backend provider.
