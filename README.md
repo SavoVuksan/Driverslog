@@ -10,3 +10,4 @@ The app shows you who rode on which date and how far.
 ![Driverslog List](https://github.com/SavoVuksan/Driverslog/blob/master/images/driverslog02.PNG)
 
 The Webapp is made with plain JS ES2016 and uses Firebase as a host and backend provider.
+You can test the App [HERE](https://driverslog-mobile.web.app/)
