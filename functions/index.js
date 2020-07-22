@@ -3,7 +3,7 @@ const cors = require('cors')({origin: true});
 const admin = require('firebase-admin');
 admin.initializeApp();
 
-const keyword = 'fahrtenbuch4321!';
+const keyword = 'EnterSecretPassword!';
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
